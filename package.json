@@ -24,6 +24,10 @@
   ],
   "author": "NocturneLab",
   "license": "ISC",
+  "sails": {
+    "isHook": true,
+    "hookName": "pdf"
+  },
   "bugs": {
     "url": "https://github.com/nocturneio/sails-html-pdf/issues"
   },
