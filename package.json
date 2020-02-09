@@ -1,0 +1,31 @@
+{
+  "name": "sails-html-pdf",
+  "version": "1.0.1",
+  "description": "Convert ejs template to pdf with Sails.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nocturneio/sails-html-pdf.git"
+  },
+  "dependencies": {
+    "async": "^2.6.3",
+    "ejs": "^2.7.4",
+    "lodash": "^4.17.15",
+    "puppeteer": "^2.1.1"
+  },
+  "keywords": [
+    "SailsJS",
+    "Sails",
+    "Html",
+    "PDF"
+  ],
+  "author": "NocturneLab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nocturneio/sails-html-pdf/issues"
+  },
+  "homepage": "https://github.com/nocturneio/sails-html-pdf#readme"
+}
