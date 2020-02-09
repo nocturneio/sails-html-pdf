@@ -49,41 +49,27 @@ module.exports = function PDF(sails) {
                     output: "mypdf.pdf"
                 };
                 var opt = _.defaults(options, defaults);
-                async.waterfall([
-                        function (next) {
-                            compileTemplate(templatePath + "/pdf", data, function (err, html) {
-                                if (err) {
-                                    next(err);
-                                } else {
-                                    next(null, html);
-                                }
-                            });
-                        },
-                        function (html, next) {
-                            try{
-                                const browser = puppeteer.launch({headless: true});
-                                const page = browser.newPage();
-                                page.setContent(html);
-                                const pdf = page.pdf({format: 'A4', printBackground: true, path: path.resolve(sails.config.appPath, opt.output)});
 
-                                browser.close();
+                compileTemplate(templatePath + "/pdf", data, async function (err, html) {
+                    if (err) {
+                        return reject(err);
+                    } else {
+                        try{
+                            const browser = await puppeteer.launch({headless: true});
+                            const page = await browser.newPage();
+                            await page.setContent(html);
+                            const pdf = await page.pdf({format: 'A4', printBackground: true, path: path.resolve(sails.config.appPath, opt.output)});
 
-                                next(null, pdf);
-                            }catch (e) {
-                                console.log(e);
-                                next(e)
-                            }
+                            await browser.close();
+
+                            cb(null, pdf);
+                            return resolve(pdf);
+                        }catch (e) {
+                            cb(e);
+                            return reject(e);
                         }
-                    ],
-                    function (error, result) {
-                        if (error) {
-                            if (cb) cb(error);
-                            reject(error);
-                        } else {
-                            if (cb) cb(null, result);
-                            resolve(result);
-                        }
-                    });
+                    }
+                });
             });
         }
     };
