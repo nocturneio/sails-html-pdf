@@ -60,14 +60,19 @@ module.exports = function PDF(sails) {
                             });
                         },
                         async function (html, next) {
-                            const browser = await puppeteer.launch({headless: true});
-                            const page = await browser.newPage();
-                            await page.setContent(html);
-                            const pdf = await page.pdf({format: 'A4', printBackground: true, path: path.resolve(sails.config.appPath, opt.output)});
+                            try{
+                                const browser = await puppeteer.launch({headless: true});
+                                const page = await browser.newPage();
+                                await page.setContent(html);
+                                const pdf = await page.pdf({format: 'A4', printBackground: true, path: path.resolve(sails.config.appPath, opt.output)});
 
-                            await browser.close();
+                                await browser.close();
 
-                            next(null, pdf);
+                                next(null, pdf);
+                            }catch (e) {
+                                console.log(e);
+                                next(e)
+                            }
                         }
                     ],
                     function (error, result) {
