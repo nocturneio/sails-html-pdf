@@ -58,7 +58,7 @@ module.exports = function PDF(sails) {
                             const browser = await puppeteer.launch({headless: true});
                             const page = await browser.newPage();
                             await page.setContent(html);
-                            const pdf = await page.pdf({format: 'A4', printBackground: true, path: path.resolve(sails.config.appPath, opt.output)});
+                            const pdf = await page.pdf({format: 'A4', printBackground: true, scale: 0.8, path: path.resolve(sails.config.appPath, opt.output)});
 
                             await browser.close();
 

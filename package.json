@@ -1,6 +1,6 @@
 {
   "name": "sails-html-pdf",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Convert ejs template to pdf with Sails.js",
   "main": "index.js",
   "scripts": {
